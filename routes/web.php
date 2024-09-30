@@ -21,5 +21,8 @@ Route::middleware('auth')->group(function () {
 Route::resource('chirps', ChirpController::class)
 ->only(['index', 'store', 'edit', 'update', 'destroy'])
     ->middleware(['auth', 'verified']);
+
+    Route::post('profile/{profileId}/follow', 'ProfileController@followUser')->name('user.follow');
+    Route::post('/{profileId}/unfollow', 'ProfileController@unFollowUser')->name   ('user.unfollow');
  
 require __DIR__.'/auth.php';

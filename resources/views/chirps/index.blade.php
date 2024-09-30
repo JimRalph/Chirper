@@ -48,7 +48,33 @@
                                         </form>
                                     </x-slot>
                                 </x-dropdown>
-                            @endif
+                                @else
+                                <x-dropdown>
+                                    <x-slot name="trigger">
+                                        <button>
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
+                                                <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" />
+                                            </svg>
+                                        </button>
+                                    </x-slot>
+                                    <x-slot name="content">
+                                        <form method="POST" action="{{ route('user.follow', $chirp->user->id) }}">
+                                            @csrf
+                                            @method('Follow')
+                                            <x-dropdown-link :href="route('user.follow', $chirp->user->id)" onclick="event.preventDefault(); this.closest('form').submit();">
+                                                {{ __('Follow') }}
+                                            </x-dropdown-link>
+                                        </form>
+                                        <form method="POST" action="{{ route('user.unfollow', $chirp->user->id) }}">
+                                            @csrf
+                                            @method('Unfollow')
+                                            <x-dropdown-link :href="route('user.unfollow', $chirp->user->id)" onclick=<"event.preventDefault(); this.closest('form').submit();">
+                                                {{ __('Unfollow') }}
+                                            </x-dropdown-link>
+                                        </form>
+                                    </x-slot>
+                                </x-dropdown>
+                                @endif
                         </div>
                         <p class="mt-4 text-lg text-gray-900">{{ $chirp->message }}</p>
                     </div>
